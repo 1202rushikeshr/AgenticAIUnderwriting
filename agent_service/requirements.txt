@@ -1,0 +1,15 @@
+# API
+fastapi
+uvicorn[standard]
+
+# Config
+python-dotenv
+
+# AWS Bedrock
+boto3
+
+# Agentic AI
+crewai[tools]
+
+
+

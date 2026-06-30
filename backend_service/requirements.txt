@@ -1,0 +1,21 @@
+# API
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+psycopg2-binary
+
+# Config
+python-dotenv
+
+# AWS Bedrock
+boto3
+
+# Agentic AI
+crewai[tools]
+langchain
+
+

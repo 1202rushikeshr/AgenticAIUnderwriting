@@ -1,0 +1,113 @@
+<div class="page">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">AU</div>
+      <div>
+        <div class="title">Insurance Application Portal</div>
+        <div class="subtitle">Submission only (no underwriting actions in this UI)</div>
+      </div>
+    </div>
+  </div>
+
+  <mat-card class="card">
+    <mat-card-title>Submit a New Application</mat-card-title>
+    <mat-card-subtitle>Please fill all required fields and submit.</mat-card-subtitle>
+
+    <div class="success" *ngIf="submittedId !== null">
+      <div class="success-title">✅ Application submitted</div>
+      <div class="success-body">Your Application ID: <b>{{ submittedId }}</b></div>
+      <button mat-stroked-button color="primary" (click)="resetForm()">Submit another</button>
+    </div>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" *ngIf="submittedId === null">
+      <div class="grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="name" placeholder="Reena Sharma" />
+          <mat-error *ngIf="form.controls.name.touched && form.controls.name.invalid">Name is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="reena@gmail.com" />
+          <mat-hint>Optional, but recommended</mat-hint>
+          <mat-error *ngIf="form.controls.email.touched && form.controls.email.invalid">Enter a valid email.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contact Number</mat-label>
+          <input matInput formControlName="contact_number" placeholder="7031234567" />
+          <mat-hint>Optional</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" formControlName="age" />
+          <mat-error *ngIf="form.controls.age.touched && form.controls.age.invalid">Valid age is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Annual Income</mat-label>
+          <input matInput type="number" formControlName="income" />
+          <mat-error *ngIf="form.controls.income.touched && form.controls.income.invalid">Income is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Smoking Status</mat-label>
+          <mat-select formControlName="smoking_status">
+            <mat-option value="non-smoker">Non-smoker</mat-option>
+            <mat-option value="smoker">Smoker</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Occupation</mat-label>
+          <input matInput formControlName="occupation" placeholder="Service" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput formControlName="location" placeholder="Arlington, Virginia" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prior Claims</mat-label>
+          <input matInput type="number" formControlName="prior_claims" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Product Type</mat-label>
+          <mat-select formControlName="product_type">
+            <mat-option *ngFor="let p of productTypes" [value]="p">{{ p }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Coverage Amount</mat-label>
+          <input matInput type="number" formControlName="coverage_amount" />
+          <mat-error *ngIf="form.controls.coverage_amount.touched && form.controls.coverage_amount.invalid">
+            Coverage is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button type="button" (click)="resetForm()">Reset</button>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting">
+          <span *ngIf="!isSubmitting">Submit Application</span>
+          <span class="loading" *ngIf="isSubmitting">
+            <mat-spinner diameter="18"></mat-spinner>
+            Submitting...
+          </span>
+        </button>
+      </div>
+
+      <div class="note">
+        <b>Note:</b> This portal only submits applications. Underwriting actions/results are intentionally not available here.
+      </div>
+    </form>
+  </mat-card>
+
+  <div class="footer">© {{ currentYear() }} Agentic Underwriting • Submission Portal</div>
+</div>
